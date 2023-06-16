@@ -1,0 +1,13 @@
+<Sysmon schemaversion="4.50">
+	<EventFiltering>
+		<!--Include Rundll32 Minidump-->
+		<RuleGroup name="" groupRelation="or">
+			<ImageLoad onmatch="include">
+				<Rule groupRelation="and">
+					<Image condition="end with">rundll32.exe</Image>
+					<OriginalFileName name="technique: T1003.004 - LSASS Memory" condition="is">comsvcs.dll</OriginalFileName>
+				</Rule>
+			</ImageLoad>
+		</RuleGroup>
+	</EventFiltering>
+</Sysmon>

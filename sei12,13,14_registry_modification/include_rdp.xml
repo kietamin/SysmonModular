@@ -1,0 +1,23 @@
+<Sysmon schemaversion="4.50">
+	<EventFiltering>
+		<!--RDP-->
+		<RuleGroup name="" groupRelation="or">
+			<RegistryEvent onmatch="include">
+				<TargetObject name="RDP port change" condition="end with">Control\Terminal Server\WinStations\RDP-Tcp\PortNumber</TargetObject>
+				<!--Windows: RDP port change under Control [ https://blog.menasec.net/2019/02/of-rdp-hijacking-part1-remote-desktop.html ]-->
+				<TargetObject name="RDP port change" condition="end with">Control\Terminal Server\fSingleSessionPerUser</TargetObject>
+				<!--Windows: Allow same user to have mutliple RDP sessions, to hide from admin being impersonated-->
+				<TargetObject name="ModifyRemoteDesktopState" condition="end with">fDenyTSConnections</TargetObject>
+				<!--Windows: Attacker turning on RDP-->
+				<TargetObject condition="end with">LastLoggedOnUser</TargetObject>
+				<!--Windows: Changing last-logged in user-->
+				<TargetObject name="ModifyRemoteDesktopPort" condition="end with">RDP-tcp\PortNumber</TargetObject>
+				<!--Windows: Changing RDP port to evade IDS-->
+				<TargetObject condition="end with">Services\PortProxy\v4tov4</TargetObject>
+				<!--Windows: Changing RDP port to evade IDS-->
+				<TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\InitialProgram</TargetObject>
+				<!--Windows:RDP: Note other Terminal Server run keys are handled by another wildcard already-->
+			</RegistryEvent>
+		</RuleGroup>
+	</EventFiltering>
+</Sysmon>

@@ -1,0 +1,17 @@
+<Sysmon schemaversion="4.50">
+	<EventFiltering>
+		<!--Services-->
+		<RuleGroup name="" groupRelation="or">
+			<RegistryEvent onmatch="include">
+				<TargetObject name="technique: T1543.003 - Create or Modify System Process: Windows Service" condition="end with">\ServiceDll</TargetObject>
+				<!--Windows: Points to a service's DLL [ https://blog.cylance.com/windows-registry-persistence-part-1-introduction-attack-phases-and-windows-services ] -->
+				<TargetObject name="technique: T1543.003 - Create or Modify System Process: Windows Service" condition="end with">\ServiceManifest</TargetObject>
+				<!--Windows: Manifest pointing to service's DLL [ https://www.geoffchappell.com/studies/windows/win32/services/svchost/index.htm ] -->
+				<TargetObject name="technique: T1543.003 - Create or Modify System Process: Windows Service" condition="end with">\ImagePath</TargetObject>
+				<!--Windows: Points to a service's EXE [ https://attack.mitre.org/wiki/Technique/T1050 ] -->
+				<TargetObject name="technique: T1543.003 - Create or Modify System Process: Windows Service" condition="end with">\Start</TargetObject>
+				<!--Windows: Services start mode changes (Disabled, Automatically, Manual)-->
+			</RegistryEvent>
+		</RuleGroup>
+	</EventFiltering>
+</Sysmon>

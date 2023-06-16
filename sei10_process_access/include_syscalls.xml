@@ -1,0 +1,15 @@
+<Sysmon schemaversion="4.50">
+	<EventFiltering>
+		<!--Include Syscalls-->
+		<RuleGroup name="" groupRelation="or">
+			<ProcessAccess onmatch="include">
+				<Rule groupRelation="and">
+					<!-- https://medium.com/falconforce/falconfriday-direct-system-calls-and-cobalt-strike-bofs-0xff14-741fa8e1bdd6 -->
+					<CallTrace name="technique: T1055 - Process Injection" condition="not begin with">C:\Windows\SYSTEM32\ntdll.dll</CallTrace>
+					<CallTrace name="technique: T1055 - Process Injection" condition="not begin with">C:\Windows\SYSTEM32\win32u.dll</CallTrace>
+					<CallTrace name="technique: T1055 - Process Injection" condition="not begin with">C:\Windows\SYSTEM32\wow64win.dll</CallTrace>
+				</Rule>
+			</ProcessAccess>
+		</RuleGroup>
+	</EventFiltering>
+</Sysmon>

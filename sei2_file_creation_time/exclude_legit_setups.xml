@@ -1,0 +1,25 @@
+<Sysmon schemaversion="4.50">
+	<EventFiltering>
+		<RuleGroup name="" groupRelation="or">
+			<FileCreateTime onmatch="exclude">
+				<Image condition="image">OneDrive.exe</Image>
+				<!--OneDrive constantly changes file times-->
+				<Image condition="image">C:\Windows\system32\backgroundTaskHost.exe</Image>
+				<Image condition="contains">setup</Image>
+				<!--Ignore setups-->
+				<Image condition="contains">install</Image>
+				<!--Ignore setups-->
+				<Image condition="contains">Update\</Image>
+				<!--Ignore setups-->
+				<Image condition="end with">redist.exe</Image>
+				<!--Ignore setups-->
+				<Image condition="is">msiexec.exe</Image>
+				<!--Ignore setups-->
+				<Image condition="is">TrustedInstaller.exe</Image>
+				<!--Ignore setups-->
+				<TargetFilename condition="contains">\NVIDIA\NvBackend\ApplicationOntology\</TargetFilename>
+				<!--NVIDIA GeForce Experience Application Ontology, 1000's of events in user profile-->
+			</FileCreateTime>
+		</RuleGroup>
+	</EventFiltering>
+</Sysmon>

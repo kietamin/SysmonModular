@@ -1,0 +1,10 @@
+<Sysmon schemaversion="4.50">
+	<EventFiltering>
+		<!--Include Regsvc-->
+		<RuleGroup name="" groupRelation="or">
+			<ImageLoad onmatch="include">
+				<OriginalFileName name="technique: T1112 - Modify Registry" condition="is">regsvc.dll</OriginalFileName>
+			</ImageLoad>
+		</RuleGroup>
+	</EventFiltering>
+</Sysmon>

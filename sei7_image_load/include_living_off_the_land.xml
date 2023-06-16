@@ -1,0 +1,11 @@
+<Sysmon schemaversion="4.50">
+	<EventFiltering>
+		<!--Include Living Off The Land-->
+		<RuleGroup name="" groupRelation="or">
+			<ImageLoad onmatch="include">
+				<ImageLoaded name="technique: T1053 - Windows Scheduled Tasks" condition="end with">mstask.dll</ImageLoaded>
+				<OriginalFileName name="technique: T1053 - Windows Scheduled Tasks" condition="is">taskschd.dll</OriginalFileName>
+			</ImageLoad>
+		</RuleGroup>
+	</EventFiltering>
+</Sysmon>

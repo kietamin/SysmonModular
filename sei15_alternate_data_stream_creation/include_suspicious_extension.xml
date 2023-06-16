@@ -1,0 +1,48 @@
+<Sysmon schemaversion="4.50">
+	<EventFiltering>
+		<RuleGroup name="" groupRelation="or">
+			<FileCreateStreamHash onmatch="include">
+				<TargetFilename condition="contains">Downloads</TargetFilename>
+				<!--Downloaded files. Does not include "Run" files in IE-->
+				<TargetFilename condition="contains">Temp\7z</TargetFilename>
+				<!--7zip extractions-->
+				<TargetFilename condition="contains">Startup</TargetFilename>
+				<!--ADS startup | Example: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
+				<TargetFilename condition="end with">.bat</TargetFilename>
+				<!--Batch scripting-->
+				<TargetFilename condition="end with">.cmd</TargetFilename>
+				<!--Batch scripting | Credit @ion-storm -->
+				<TargetFilename condition="end with">.doc</TargetFilename>
+				<!--Office doc potentially with macro -->
+				<TargetFilename condition="end with">.hta</TargetFilename>
+				<!--Scripting-->
+				<TargetFilename condition="end with">.jse</TargetFilename>
+				<!--Registry File-->
+				<TargetFilename condition="end with">.lnk</TargetFilename>
+				<!--Shortcut file | Credit @ion-storm -->
+				<TargetFilename condition="end with">.ppt</TargetFilename>
+				<!--Office doc potentially with macros-->
+				<TargetFilename condition="end with">.ps1</TargetFilename>
+				<!--PowerShell-->
+				<TargetFilename condition="end with">.ps2</TargetFilename>
+				<!--PowerShell-->
+				<TargetFilename condition="end with">.reg</TargetFilename>
+				<!--Registry File-->
+				<TargetFilename condition="end with">.sct</TargetFilename>
+				<!--Scripting | Credit @bartblaze -->
+				<TargetFilename condition="end with">.vb</TargetFilename>
+				<!--VisualBasicScripting files-->
+				<TargetFilename condition="end with">.vbe</TargetFilename>
+				<!--VisualBasicScripting files-->
+				<TargetFilename condition="end with">.vbs</TargetFilename>
+				<!--VisualBasicScripting files-->
+				<TargetFilename condition="end with">.wsc</TargetFilename>
+				<!--Scripting | Credit @bartblaze -->
+				<TargetFilename condition="end with">.wsf</TargetFilename>
+				<!--Scripting | Credit @bartblaze -->
+				<TargetFilename condition="end with">.rtf</TargetFilename>
+				<!--Some payload might use .rtf file as an alternative way to execute -->
+			</FileCreateStreamHash>
+		</RuleGroup>
+	</EventFiltering>
+</Sysmon>

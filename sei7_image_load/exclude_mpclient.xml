@@ -1,0 +1,11 @@
+<Sysmon schemaversion="4.50">
+	<EventFiltering>
+		<!--Mpclient Exclusion-->
+		<RuleGroup name="" groupRelation="and">
+			<ImageLoad onmatch="exclude">
+				<Image condition="is">C:\Windows\System32\wbem\WmiPrvSE.exe</Image>
+				<ImageLoaded condition="contains">\MpClient.dll</ImageLoaded>
+			</ImageLoad>
+		</RuleGroup>
+	</EventFiltering>
+</Sysmon>

@@ -1,0 +1,32 @@
+<Sysmon schemaversion="4.50">
+	<EventFiltering>
+		<RuleGroup name="" groupRelation="or">
+			<ImageLoad onmatch="include">
+				<ImageLoaded name="technique: T1574.002 - Suspicious Location" condition="contains any">admin$;c$;\\;\appdata\;\temp\</ImageLoaded>
+				<!-- loaded from network file share -->
+				<ImageLoaded condition="begin with" name="technique: T1574.002 - Suspicious Location">c:\programdata\</ImageLoaded>
+				<ImageLoaded condition="begin with" name="technique: T1574.002 - Suspicious Location">C:\Windows\Media\</ImageLoaded>
+				<ImageLoaded condition="begin with" name="technique: T1574.002 - Suspicious Location">C:\Windows\addins\</ImageLoaded>
+				<ImageLoaded condition="begin with" name="technique: T1574.002 - Suspicious Location">C:\Windows\system32\config\systemprofile\</ImageLoaded>
+				<ImageLoaded condition="begin with" name="technique: T1574.002 - Suspicious Location">C:\Windows\Debug\</ImageLoaded>
+				<ImageLoaded condition="begin with" name="technique: T1574.002 - Suspicious Location">C:\Windows\Temp</ImageLoaded>
+				<ImageLoaded condition="begin with" name="technique: T1574.002 - Suspicious Location">C:\PerfLogs\</ImageLoaded>
+				<ImageLoaded condition="begin with" name="technique: T1574.002 - Suspicious Location">C:\Windows\Help\</ImageLoaded>
+				<ImageLoaded condition="begin with" name="technique: T1574.002 - Suspicious Location">C:\Intel\Logs\</ImageLoaded>
+				<ImageLoaded condition="begin with" name="technique: T1574.002 - Suspicious Location">C:\Temp</ImageLoaded>
+				<ImageLoaded condition="begin with" name="technique: T1574.002 - Suspicious Location">C:\Windows\repair\</ImageLoaded>
+				<ImageLoaded condition="begin with" name="technique: T1574.002 - Suspicious Location">C:\Windows\security\</ImageLoaded>
+				<ImageLoaded condition="begin with" name="technique: T1574.002 - Suspicious Location">C:\Windows\Fonts\</ImageLoaded>
+				<ImageLoaded condition="contains" name="technique: T1574.002 - Suspicious Location">Downloads</ImageLoaded>
+				<ImageLoaded condition="contains" name="technique: T1574.002 - Suspicious Location">Public</ImageLoaded>
+				<ImageLoaded condition="contains" name="technique: T1574.002 - Suspicious Location">Documents</ImageLoaded>
+				<ImageLoaded condition="contains" name="technique: T1574.002 - Suspicious Location">Music</ImageLoaded>
+				<ImageLoaded condition="contains" name="technique: T1574.002 - Suspicious Location">Video</ImageLoaded>
+				<ImageLoaded condition="begin with" name="technique: T1574.002 - Suspicious Location">file:</ImageLoaded>
+				<ImageLoaded name="technique: T1574.002 - Suspicious Location" condition="contains">$Recycle.bin\</ImageLoaded>
+				<ImageLoaded name="technique: T1574.002 - Suspicious Location" condition="contains">\Windows\IME\</ImageLoaded>
+				<OriginalFileName condition="is">urlmon.dll</OriginalFileName>
+			</ImageLoad>
+		</RuleGroup>
+	</EventFiltering>
+</Sysmon>

@@ -1,0 +1,48 @@
+<Sysmon schemaversion="4.50">
+	<EventFiltering>
+		<!--Ports: Suspicious-->
+		<RuleGroup name="" groupRelation="or">
+			<NetworkConnect onmatch="include">
+				<DestinationPort name="SSH" condition="is">22</DestinationPort>
+				<!--SSH protocol, monitor admin connections-->
+				<DestinationPort name="Telnet" condition="is">23</DestinationPort>
+				<!--Telnet protocol, monitor admin connections, insecure-->
+				<DestinationPort name="SMTP" condition="is">25</DestinationPort>
+				<!--SMTP mail protocol port, insecure, used by threats-->
+				<DestinationPort name="IMAP" condition="is">143</DestinationPort>
+				<!--IMAP mail protocol port, insecure, used by threats-->
+				<DestinationPort name="RDP" condition="is">3389</DestinationPort>
+				<!--Windows:RDP: Monitor admin connections-->
+				<DestinationPort name="VNC" condition="is">5800</DestinationPort>
+				<!--VNC protocol: Monitor admin connections, often insecure, using hard-coded admin password-->
+				<DestinationPort name="VNC" condition="is">5900</DestinationPort>
+				<!--VNC protocol Monitor admin connections, often insecure, using hard-coded admin password-->
+				<DestinationPort name="Alert,Metasploit" condition="is">4444</DestinationPort>
+				<!--Ports: Proxy-->
+				<DestinationPort name="Proxy" condition="is">1080</DestinationPort>
+				<!--Socks proxy port | Credit @ion-storm-->
+				<DestinationPort name="Proxy" condition="is">3128</DestinationPort>
+				<!--Socks proxy port | Credit @ion-storm-->
+				<DestinationPort name="Proxy" condition="is">8080</DestinationPort>
+				<!--Socks proxy port | Credit @ion-storm-->
+				<!--Ports: Tor-->
+				<DestinationPort name="Tor" condition="is">1723</DestinationPort>
+				<!--Tor protocol [ https://attack.mitre.org/wiki/Technique/T1090 ] | Credit @ion-storm-->
+				<DestinationPort name="Tor" condition="is">9001</DestinationPort>
+				<!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
+				<DestinationPort name="Tor" condition="is">9030</DestinationPort>
+				<!--Tor protocol [ http://www.computerworlduk.com/tutorial/security/tor-enterprise-2016-blocking-malware-darknet-use-rogue-nodes-3633907/ ] -->
+				<Rule groupRelation="and">
+					<DestinationPort name="technique_id=T1021,technique_name=Remote Services" condition="is">88</DestinationPort>
+					<!--Kerberos protocol-->
+					<Image condition="is not">C:\Windows\System32\lsass.exe</Image>
+					<!--exclude LSASS for Kerberos protocol-->
+				</Rule>
+				<DestinationPort name="technique_id=T1021,technique_name=Remote Services" condition="is">5985</DestinationPort>
+				<!--WinRM protocol-->
+				<DestinationPort name="technique_id=T1021,technique_name=Remote Services" condition="is">5986</DestinationPort>
+				<!--WinRM protocol-->
+			</NetworkConnect>
+		</RuleGroup>
+	</EventFiltering>
+</Sysmon>

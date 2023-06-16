@@ -1,0 +1,20 @@
+<Sysmon schemaversion="4.50">
+	<EventFiltering>
+		<!--Include Mshta Amsi Bypass-->
+		<RuleGroup name="" groupRelation="or">
+			<ImageLoad onmatch="include">
+				<!--Detect execution of HTA using the IE Javascript engine to bypass AMSI-->
+				<!--Note: Rule placed before Windows Scripting to ensure it triggers on this on case any other component is used.-->
+				<!---Thanks to Carlos Perez-->
+				<Rule groupRelation="and">
+					<OriginalFileName name="technique: T1218.005 - MSHTA with AMSI Bypass" condition="is">jscript.dll</OriginalFileName>
+					<Image condition="end with">mshta.exe</Image>
+				</Rule>
+				<Rule groupRelation="and">
+					<OriginalFileName name="technique: T1218.005 - MSHTA with AMSI Bypass" condition="is">jscript9.dll</OriginalFileName>
+					<Image condition="end with">mshta.exe</Image>
+				</Rule>
+			</ImageLoad>
+		</RuleGroup>
+	</EventFiltering>
+</Sysmon>

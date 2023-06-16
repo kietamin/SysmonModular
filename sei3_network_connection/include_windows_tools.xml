@@ -1,0 +1,110 @@
+<Sysmon schemaversion="4.50">
+	<EventFiltering>
+		<!--Suspicious Windows tools-->
+		<RuleGroup name="" groupRelation="or">
+			<NetworkConnect onmatch="include">
+				<Image condition="image">at.exe</Image>
+				<!--Windows: Remote task scheduling, removed in Win10 | Credit @ion-storm -->
+				<Image condition="image">certutil.exe</Image>
+				<!--Windows: Certificate tool can contact outbound | Credit @ion-storm @FVT [ https://twitter.com/FVT/status/834433734602530817 ] -->
+				<Image condition="image">cmd.exe</Image>
+				<!--Windows: Remote command prompt-->
+				<Image condition="image">cmstp.exe</Image>
+				<!--Windows: Connection manager profiles can launch executables from WebDAV [ https://twitter.com/NickTyrer/status/958450014111633408 ] | Credit @NickTyrer @Oddvarmoe @KyleHanslovan @subTee -->
+				<Image condition="image">cscript.exe</Image>
+				<!--WindowsScriptingHost: | Credit @Cyb3rOps [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
+				<Image condition="image">driverquery.exe</Image>
+				<!--Windows: Remote recognisance of system configuration, oudated/vulnerable drivers -->
+				<Image condition="image">dsquery.exe</Image>
+				<!--Microsoft: Query Active Directory -->
+				<Image condition="image">hh.exe</Image>
+				<!--Windows: HTML Help Executable, opens CHM files -->
+				<Image condition="image">infDefaultInstall.exe</Image>
+				<!--Microsoft: [ https://github.com/huntresslabs/evading-autoruns ] | Credit @KyleHanslovan -->
+				<Image condition="image">java.exe</Image>
+				<!--Java: Monitor usage of vulnerable application and init from JAR files | Credit @ion-storm -->
+				<Image condition="image">javaw.exe</Image>
+				<!--Java: Monitor usage of vulnerable application and init from JAR files -->
+				<Image condition="image">javaws.exe</Image>
+				<!--Java: Monitor usage of vulnerable application and init from JAR files -->
+				<Image condition="image">mmc.exe</Image>
+				<!--Windows: -->
+				<Image condition="image">msbuild.exe</Image>
+				<!--Windows: [ https://www.hybrid-analysis.com/sample/a314f6106633fba4b70f9d6ddbee452e8f8f44a72117749c21243dc93c7ed3ac?environmentId=100 ] -->
+				<Image condition="image">mshta.exe</Image>
+				<!--Windows: HTML application executes scripts without IE protections | Credit @ion-storm [ https://en.wikipedia.org/wiki/HTML_Application ] -->
+				<Image condition="image">msiexec.exe</Image>
+				<!--Windows: Can install from http:// paths | Credit @vector-sec -->
+				<Image condition="image">nbtstat.exe</Image>
+				<!--Windows: NetBIOS statistics, attackers use to enumerate local network -->
+				<Image condition="image">net.exe</Image>
+				<!--Windows: Note - May not detect anything, net.exe is a front-end to lower APIs | Credit @ion-storm -->
+				<Image condition="image">net1.exe</Image>
+				<!--Windows: Launched by "net.exe", but it may not detect connections either -->
+				<Image condition="image">notepad.exe</Image>
+				<!--Windows: [ https://secrary.com/ReversingMalware/CoinMiner/ ] [ https://blog.cobaltstrike.com/2013/08/08/why-is-notepad-exe-connecting-to-the-internet/ ] -->
+				<Image condition="image">nslookup.exe</Image>
+				<!--Windows: Retrieve data over DNS -->
+				<Image condition="image">powershell.exe</Image>
+				<!--Windows: PowerShell interface-->
+				<Image condition="image">powershell_ise.exe</Image>
+				<!--Windows: PowerShell interface-->
+				<Image condition="image">qprocess.exe</Image>
+				<!--Windows: [ https://www.first.org/resources/papers/conf2017/APT-Log-Analysis-Tracking-Attack-Tools-by-Audit-Policy-and-Sysmon.pdf ] -->
+				<Image condition="image">qwinsta.exe</Image>
+				<!--Windows: Query remote sessions | Credit @ion-storm -->
+				<Image condition="image">qwinsta.exe</Image>
+				<!--Windows: Remotely query login sessions on a server or workstation | Credit @ion-storm -->
+				<Image condition="image">reg.exe</Image>
+				<!--Windows: Remote Registry editing ability | Credit @ion-storm -->
+				<Image condition="image">regsvcs.exe</Image>
+				<!--Windows: [ https://www.hybrid-analysis.com/sample/3f94d7080e6c5b8f59eeecc3d44f7e817b31562caeba21d02ad705a0bfc63d67?environmentId=100 ] -->
+				<Image condition="image">regsvr32.exe</Image>
+				<!--Windows: [ https://subt0x10.blogspot.com/2016/04/bypass-application-whitelisting-script.html ] -->
+				<Image condition="image">rundll32.exe</Image>
+				<!--Windows: [ https://blog.cobaltstrike.com/2016/07/22/why-is-rundll32-exe-connecting-to-the-internet/ ] -->
+				<Image condition="image">rwinsta.exe</Image>
+				<!--Windows: Disconnect remote sessions | Credit @ion-storm -->
+				<Image condition="image">sc.exe</Image>
+				<!--Windows: Remotely change Windows service settings | Credit @ion-storm -->
+				<Image condition="image">schtasks.exe</Image>
+				<!--Windows: Command-line interface to local and remote tasks -->
+				<Image condition="image">taskkill.exe</Image>
+				<!--Windows: Kill processes, has remote ability -->
+				<Image condition="image">tasklist.exe</Image>
+				<!--Windows: List processes, has remote ability -->
+				<Image condition="image">wmic.exe</Image>
+				<!--WindowsManagementInstrumentation: Credit @Cyb3rOps [ https://gist.github.com/Neo23x0/a4b4af9481e01e749409 ] -->
+				<Image condition="image">wscript.exe</Image>
+				<!--WindowsScriptingHost: | Credit @arekfurt -->
+				<!--Live of the Land Binaries and scripts (LOLBAS) -->
+				<Image condition="image">bitsadmin.exe</Image>
+				<!-- Windows: Background Intelligent Transfer Service - Can download from URLs -->
+				<Image condition="image">esentutl.exe</Image>
+				<!-- Windows: Database utilities for the ESE - Can fetch from UNC paths -->
+				<Image condition="image">expand.exe</Image>
+				<!-- Windows: Expands one or more compressed files - Can fetch from UNC paths -->
+				<Image condition="image">extrac32.exe</Image>
+				<!--Windows: Uncompress .cab files - Can fetch from UNC paths -->
+				<Image condition="image">findstr.exe</Image>
+				<!-- Windows: Search for strings - Can fetch from UNC paths -->
+				<Image condition="image">GfxDownloadWrapper.exe</Image>
+				<!-- Intel Graphics Control Panel: Remote file download -->
+				<Image condition="image">ieexec.exe</Image>
+				<!-- Windows: Microsoft .NET Framework application - Download and execute from URLs -->
+				<Image condition="image">makecab.exe</Image>
+				<!-- Windows: Packages existing files into a .cab - Can fetch from UNC paths -->
+				<Image condition="image">replace.exe</Image>
+				<!-- Windows: Used to replace file with another file - Can fetch from UNC paths -->
+				<Image condition="image">Excel.exe</Image>
+				<!-- Windows Office: Excel - Can download from URLs -->
+				<Image condition="image">Powerpnt.exe</Image>
+				<!-- Windows Office: PowerPoint - Can download from URLs -->
+				<Image condition="image">Winword.exe</Image>
+				<!-- Windows Office: Word - Can download from URLs -->
+				<Image condition="image">squirrel.exe</Image>
+				<!-- Windows: Update the Nuget/Squirrel packages. Part of Teams. - Can download from URLs -->
+			</NetworkConnect>
+		</RuleGroup>
+	</EventFiltering>
+</Sysmon>
